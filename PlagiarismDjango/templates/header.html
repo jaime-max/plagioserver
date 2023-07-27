@@ -1,0 +1,40 @@
+<div class="card-header">
+    
+    
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="padding: 5px ;">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarNavDropdown" aria-label="Toggle Navigation" aria-expanded="false">
+            <span class="navbar-toggler-icon"> </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"> <a class="nav-link" href="{% url 'homepage'%}">Home</a></li>
+                <li class="nav-item "> <a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/#">Nada1</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./#.html">Comentarios</a></li>
+            </ul>
+            {% if user.is_authenticated %}
+            <p></p>
+            <ul class="navbar-nav " id="derecha" style="line-height: 10px ;">
+
+                <li class="nav-item" id="margin"> <a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+                <li class="nav-item" id="margin"> <a class="nav-link" href="{% url 'passwordChange' %}">Change
+                        Password</a></li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav " id="derecha">
+                <li class="nav-item" id="margin"> <a class="nav-link" href="{% url 'autenticar' %}">Log In</a></li>
+                <li class="nav-item" id="margin"> <a class="nav-link" href="{% url 'registrar' %}">Registrar</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+    <center>
+        <h1>Universidad Nacional de Loja</h1>
+        <li>Carrera: Ingeniería en Computacion</li>
+        <li>Materia: Software Security</li>
+        <li>Docente: </li>
+    </center>
+</div>

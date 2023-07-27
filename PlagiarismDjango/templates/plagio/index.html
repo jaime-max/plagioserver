@@ -1,0 +1,83 @@
+{% extends 'master.html' %}
+{% block contenido %}
+
+<div class="container">
+    <h4>Lista de resultados:</h4>
+    <!-- <table class="table table-sm" style="width: 100px;">
+        <tr style="border-style: solid;border-width: 1px;">
+            <th style="width: 10px;border-style: solid;border-width: 1px;">Resultado:</th>
+            <th style="border-style: solid;border-width: 1px;">{{viaje.numero}}</th>
+        </tr>
+        <tr>
+            <th style="width: 10px;border-style: solid;border-width: 1px;">Destino:</th>
+            <th style="border-style: solid;border-width: 1px;">{{viaje.destino}}</th>
+        </tr>
+
+    </table> -->
+    <!-- cambio: agregar una opcion para desactivar el documento como parte del detector -->
+    <!-- cambio: agrega un parametro del porcentaje de plagio encontrado, si aun no se lo obtiene, saldra analisando -->
+    
+    <table class="table table-hover">
+        {% if cond %}
+        <thead class="thead-light">
+            <tr>
+                <th>Numero</th>
+                <th>Documento</th>
+                <th>Titulo</th>
+                <th>Comentario</th>
+                <th>Subido por</th>
+                <th>Revision</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultado in listaResultado%}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{resultado.management.documento.get_nombre_archivo }}</td>  <!-- ojo -->
+                <td>{{resultado.management.titulo}}</td>
+                <td>{{resultado.management.comentario}}</td>
+                {% if resultado.management.estudiante is not none %}
+                <td>{{resultado.management.estudiante.usuario.nombres}} {{resultado.management.estudiante.usuario.apellidos}}</td>
+                {% else %}
+                <td>{{resultado.management.docente.usuario.nombres}} {{resultado.management.docente.usuario.apellidos}}</td>
+                {% endif %}
+
+                {% if resultado.ejecutando %}
+                <td><span style='color:red'>Ejecucion en proceso...</span></td>
+                {%else%}
+                <td >
+                    <a class="btn btn-info"  href="{% url 'revision' resultado.resultado_id  %}"
+                        role="button">Revision</a>
+                </td>
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% else %}
+        
+        <thead class="thead-light">
+            <tr>
+                <th>Numero</th>
+                <th>Documento</th>
+                <th>Subido por</th>
+                <th>Revision</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultado in listaResultado%}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{resultado.management.documento.get_nombre_archivo }}</td>  <!-- ojo -->
+                <td>{{resultado.management.docente.usuario.nombres}} {{resultado.management.docente.usuario.apellidos}}</td>
+                <td >
+                    <a class="btn btn-info"  href="{% url 'revision' resultado.resultado_id  %}"
+                        role="button">Revision</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% endif %}
+    </table>
+    {% endblock %}
+</div>
